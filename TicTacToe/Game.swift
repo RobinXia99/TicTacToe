@@ -12,7 +12,7 @@ class Game {
     
     func createBoard(boardSize: Int) -> [Board] {
         var boardContent = [Board]()
-        for index in 0...boardSize {
+        for index in 1...boardSize {
             boardContent.append(Board(isChecked: false, checkedBy: nil, boardIndex: index, pieceImage: nil))
         }
         

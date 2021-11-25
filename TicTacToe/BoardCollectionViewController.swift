@@ -8,26 +8,36 @@
 import UIKit
 
 
-class BoardCollectionViewController: UICollectionViewController {
+class BoardCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     var dataSource = [Board]()
+    var boardSize = 9
+    
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     let game = Game()
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.collectionView!.register(BoardViewCell.self, forCellWithReuseIdentifier: "BoardCell")
         
-        dataSource = game.createBoard(boardSize: 9)
+     /*   let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: view.frame.size.width/3 , height: view.frame.size.width/3)*/
+
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.isScrollEnabled = false
+        self.collectionView.register(BoardViewCell.self, forCellWithReuseIdentifier: "BoardCell")
+        dataSource = game.createBoard(boardSize: boardSize)
+        view.addSubview(collectionView)
+        
 
 
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         var cell = UICollectionViewCell()
         
@@ -41,6 +51,13 @@ class BoardCollectionViewController: UICollectionViewController {
         
         return cell
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print("Index Clicked: \(dataSource[indexPath.row].boardIndex)")
+    }
+    
 
 
 }
