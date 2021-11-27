@@ -12,7 +12,8 @@ class BoardViewCell: UICollectionViewCell {
     @IBOutlet weak var boardIndexImage: UIImageView!
     
     
-    func configureBoard(with boardIndex: Board) {
-        boardIndexImage.image = boardIndex.pieceImage
+    func configureBoard(with boardIndex: Square) {
+        boardIndexImage.image = boardIndex.playerImage
     }
+    
 }

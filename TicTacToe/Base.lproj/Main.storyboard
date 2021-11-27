@@ -29,10 +29,9 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="13" minimumInteritemSpacing="0.0" id="CnG-sX-Gyr">
                                     <size key="itemSize" width="110" height="110"/>
-                                    <size key="estimatedItemSize" width="110" height="110"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="29" minY="29" maxX="29" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="29" minY="29" maxX="29" maxY="29"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BoardCell" id="wnq-Lk-cdH" customClass="BoardViewCell" customModule="TicTacToe" customModuleProvider="target">
@@ -42,11 +41,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SXK-I1-tqG">
+                                                <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SXK-I1-tqG">
                                                     <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstItem="SXK-I1-tqG" firstAttribute="top" secondItem="4vl-Y5-D1b" secondAttribute="top" id="Kp9-Ta-6mK"/>
                                                 <constraint firstAttribute="trailing" secondItem="SXK-I1-tqG" secondAttribute="trailing" id="XhK-hL-vED"/>
