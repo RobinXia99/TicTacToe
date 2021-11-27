@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00A5FAD327519EA100F04810 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A5FAD227519EA100F04810 /* PlayerModel.swift */; };
 		00A700D5274D7E1800C4DAA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A700D4274D7E1800C4DAA6 /* AppDelegate.swift */; };
 		00A700D7274D7E1800C4DAA6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A700D6274D7E1800C4DAA6 /* SceneDelegate.swift */; };
 		00A700DC274D7E1800C4DAA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00A700DA274D7E1800C4DAA6 /* Main.storyboard */; };
@@ -41,7 +40,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00A5FAD227519EA100F04810 /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		00A700D1274D7E1800C4DAA6 /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00A700D4274D7E1800C4DAA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00A700D6274D7E1800C4DAA6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 				00A7010A274D8D3300C4DAA6 /* Player.swift */,
 				00A70108274D8C2100C4DAA6 /* Square.swift */,
 				00A7010E274DA64F00C4DAA6 /* BoardViewCell.swift */,
-				00A5FAD227519EA100F04810 /* PlayerModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -291,7 +288,6 @@
 			files = (
 				00A7010F274DA64F00C4DAA6 /* BoardViewCell.swift in Sources */,
 				00A70107274D8B9B00C4DAA6 /* BoardCollectionViewController.swift in Sources */,
-				00A5FAD327519EA100F04810 /* PlayerModel.swift in Sources */,
 				00A7010D274D927700C4DAA6 /* Board.swift in Sources */,
 				00A70109274D8C2100C4DAA6 /* Square.swift in Sources */,
 				00A700D5274D7E1800C4DAA6 /* AppDelegate.swift in Sources */,

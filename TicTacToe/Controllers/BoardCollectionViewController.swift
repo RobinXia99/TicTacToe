@@ -12,7 +12,7 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
 
     var turn = ""
     var dataSource = [Square]()
-    var boardSize = 9
+    var boardSize = 25
     var player1 = Player(name: "", wins: 0, playerImage: nil, squares: nil)
     var player2 = Player(name: "", wins: 0, playerImage: nil, squares: nil)
     
@@ -94,7 +94,7 @@ extension BoardCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 110, height: 110)
+        return CGSize(width: 60, height: 60)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

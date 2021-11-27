@@ -18,8 +18,13 @@ class Board {
     
     private var squares = [Square]()
     
+    private var board3x3 = false
+    
+    private var board5x5 = false
     
     let winningCombinations3x3 = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[3,4,5],[6,7,8],[0,4,8],[2,4,6]]
+    
+    let winningCombinations5x5 = [[0,1,2,3],[1,2,3,4],[5,6,7,8],[6,7,8,9],[10,11,12,13],[11,12,13,14],[15,16,17,18],[16,17,18,19],[20,21,22,23],[21,22,23,24],[0,5,10,15],[5,10,15,20],[1,6,11,16],[6,11,16,21],[2,7,12,17],[7,12,17,22],[3,8,13,18],[8,13,18,23],[4,9,14,19],[9,14,19,24],[0,6,12,18],[6,12,18,24],[1,7,13,19],[5,11,17,23],[4,8,12,16],[8,12,16,20],[3,7,11,15],[9,13,17,21]]
     
     func createBoard(boardSize: Int) -> [Square] {
         for index in 1...boardSize {
@@ -30,10 +35,20 @@ class Board {
     
     func checkWin(player: Player) {
         if let playerSquares = player.squares {
+            
+            if board3x3 {
             for (index,numbers) in winningCombinations3x3.enumerated() {
                if playerSquares.contains(numbers[0]) && playerSquares.contains(numbers[1]) &&
                     playerSquares.contains(numbers[2]) {
                     print("\(player.name) has won!")
+                }
+            }
+            } else if board5x5 {
+                for (index,numbers) in winningCombinations5x5.enumerated() {
+                   if playerSquares.contains(numbers[0]) && playerSquares.contains(numbers[1]) &&
+                        playerSquares.contains(numbers[2]) && playerSquares.contains(numbers[3]) {
+                        print("\(player.name) has won!")
+                    }
                 }
             }
         }
