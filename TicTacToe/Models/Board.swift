@@ -12,9 +12,9 @@ import UIKit
 class Board {
     
     
-    private var player1 = Player(name: "Player1", wins: 0, playerImage: UIImage(named: "staricon"), squares: nil)
+    private var player1 = Player(name: "Player1", wins: 0, playerImage: UIImage(named: "staricon"), squares: [])
      
-    private var player2 = Player(name: "Player2", wins: 0, playerImage: UIImage(named: "circleicon"), squares: nil)
+    private var player2 = Player(name: "Player2", wins: 0, playerImage: UIImage(named: "circleicon"), squares: [])
     
     private var squares = [Square]()
     
@@ -28,10 +28,17 @@ class Board {
         return squares
     }
     
-    func checkWin(board: Array<Square>, playerTurn: String) {
-        for combination in winningCombinations3x3 {
-         
+    func checkWin(player: Player) {
+        if let playerSquares = player.squares {
+            for (index,numbers) in winningCombinations3x3.enumerated() {
+               if playerSquares.contains(numbers[0]) && playerSquares.contains(numbers[1]) &&
+                    playerSquares.contains(numbers[2]) {
+                    print("\(player.name) has won!")
+                }
+            }
         }
+        
+
     }
     
     func getBoard() -> Array<Square> {

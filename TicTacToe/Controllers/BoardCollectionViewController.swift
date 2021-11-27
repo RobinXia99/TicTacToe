@@ -12,7 +12,7 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
 
     var turn = ""
     var dataSource = [Square]()
-    var boardSize = 25
+    var boardSize = 9
     var player1 = Player(name: "", wins: 0, playerImage: nil, squares: nil)
     var player2 = Player(name: "", wins: 0, playerImage: nil, squares: nil)
     
@@ -44,11 +44,11 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
         switch turn {
         case player1.name:
             board.checkSquare(player: player1, squareIndex: squareIndex)
-            print(turn)
+            board.checkWin(player: player1)
             turn = player2.name
         case player2.name:
             board.checkSquare(player: player2, squareIndex: squareIndex)
-            print(turn)
+            board.checkWin(player: player2)
             turn = player1.name
         default:
             print("default")
@@ -94,7 +94,7 @@ extension BoardCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 60, height: 60)
+        return CGSize(width: 110, height: 110)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
