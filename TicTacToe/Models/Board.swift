@@ -12,15 +12,15 @@ import UIKit
 class Board {
     
     
-    private var player1 = Player(name: "Player1", wins: 0, playerImage: UIImage(named: "staricon"), squares: [])
+    private var player1 = Player(name: "Player1", wins: 0, playerImage: UIImage(named: "o"), squares: [])
      
-    private var player2 = Player(name: "Player2", wins: 0, playerImage: UIImage(named: "circleicon"), squares: [])
+    private var player2 = Player(name: "Player2", wins: 0, playerImage: UIImage(named: "x"), squares: [])
     
     private var squares = [Square]()
     
     private var board3x3 = false
     
-    private var board5x5 = false
+    private var board5x5 = true
     
     let winningCombinations3x3 = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[3,4,5],[6,7,8],[0,4,8],[2,4,6]]
     
@@ -40,14 +40,21 @@ class Board {
             for (index,numbers) in winningCombinations3x3.enumerated() {
                if playerSquares.contains(numbers[0]) && playerSquares.contains(numbers[1]) &&
                     playerSquares.contains(numbers[2]) {
+                   for square in squares {
+                       square.isChecked = true
+                   }
                     print("\(player.name) has won!")
                 }
             }
             } else if board5x5 {
                 for (index,numbers) in winningCombinations5x5.enumerated() {
                    if playerSquares.contains(numbers[0]) && playerSquares.contains(numbers[1]) &&
-                        playerSquares.contains(numbers[2]) && playerSquares.contains(numbers[3]) {
+                        playerSquares.contains(numbers[2]) &&
+                        playerSquares.contains(numbers[3]) {
                         print("\(player.name) has won!")
+                       for square in squares {
+                           square.isChecked = true
+                       }
                     }
                 }
             }
@@ -77,14 +84,15 @@ class Board {
          return player2
      }
      
-    func checkSquare (player: Player, squareIndex: Square) {
+    func checkSquare (player: Player, squareIndex: Square) -> Bool {
         squareIndex.squareIndex -= 1
         if squareIndex.isChecked {
-            return
+            return false
         } else {
             player.squares?.append(squareIndex.squareIndex)
             squares[squareIndex.squareIndex].isChecked = true
             squares[squareIndex.squareIndex].playerImage = player.playerImage
+            return true
         }
      }
     

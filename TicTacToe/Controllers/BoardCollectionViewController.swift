@@ -43,13 +43,15 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
     func checkSquare (squareIndex: Square) {
         switch turn {
         case player1.name:
-            board.checkSquare(player: player1, squareIndex: squareIndex)
-            board.checkWin(player: player1)
-            turn = player2.name
+            if board.checkSquare(player: player1, squareIndex: squareIndex) == true {
+                board.checkWin(player: player1)
+                turn = player2.name
+            }
         case player2.name:
-            board.checkSquare(player: player2, squareIndex: squareIndex)
-            board.checkWin(player: player2)
-            turn = player1.name
+            if board.checkSquare(player: player2, squareIndex: squareIndex) == true {
+                board.checkWin(player: player2)
+                turn = player1.name
+            }
         default:
             print("default")
         }
