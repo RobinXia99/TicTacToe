@@ -20,13 +20,21 @@ class Board {
     
     private var board3x3 = false
     
-    private var board5x5 = true
+    private var board5x5 = false
     
     let winningCombinations3x3 = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[3,4,5],[6,7,8],[0,4,8],[2,4,6]]
     
     let winningCombinations5x5 = [[0,1,2,3],[1,2,3,4],[5,6,7,8],[6,7,8,9],[10,11,12,13],[11,12,13,14],[15,16,17,18],[16,17,18,19],[20,21,22,23],[21,22,23,24],[0,5,10,15],[5,10,15,20],[1,6,11,16],[6,11,16,21],[2,7,12,17],[7,12,17,22],[3,8,13,18],[8,13,18,23],[4,9,14,19],[9,14,19,24],[0,6,12,18],[6,12,18,24],[1,7,13,19],[5,11,17,23],[4,8,12,16],[8,12,16,20],[3,7,11,15],[9,13,17,21]]
     
     func createBoard(boardSize: Int) -> [Square] {
+        switch boardSize {
+        case 9:
+            board3x3 = true
+        case 25:
+            board5x5 = true
+        default:
+            board3x3 = true
+        }
         for index in 1...boardSize {
             squares.append(Square(isChecked: false, squareIndex: index, playerImage: nil))
         }
@@ -65,6 +73,26 @@ class Board {
     
     func getBoard() -> Array<Square> {
         return squares
+    }
+    
+    func getSquareWidth() -> Int {
+        var width = 110
+        if board3x3 {
+            width = 110
+        } else if board5x5 {
+            width = 60
+        }
+        return width
+    }
+    
+    func getSquareHeight() -> Int {
+        var height = 110
+        if board3x3 {
+            height = 110
+        } else if board5x5 {
+            height = 60
+        }
+        return height
     }
     
      
