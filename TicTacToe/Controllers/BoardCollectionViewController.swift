@@ -10,11 +10,17 @@ import UIKit
 
 class BoardCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
-    var turn = ""
+    @IBOutlet weak var player1label: UILabel!
+    @IBOutlet weak var player2label: UILabel!
+    @IBOutlet weak var playerTurnLabel: UILabel!
+    @IBOutlet weak var playAgainLabel: UIButton!
+    var currentPlayer: Player = Player(name: "", playerImage: UIImage(named: "x"), squares: [0])
     var dataSource = [Square]()
     var boardSize = 9
     var player1 = Player(name: "", wins: 0, playerImage: nil, squares: nil)
     var player2 = Player(name: "", wins: 0, playerImage: nil, squares: nil)
+    var player1Name = ""
+    var player2Name = ""
     
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -30,33 +36,75 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
         collectionView.isScrollEnabled = false
         self.collectionView.register(BoardViewCell.self, forCellWithReuseIdentifier: "BoardCell")
         dataSource = board.createBoard(boardSize: boardSize)
+        board.createPlayer(namep1: player1Name, namep2: player2Name)
         player1 = board.getPlayer1()
         player2 = board.getPlayer2()
-        turn = player1.name
+        currentPlayer = player1
+        
+        player1label.text = ("\(player1.name) 🥇 \(player1.wins)")
+        player2label.text = ("\(player2.name) 🥇 \(player2.wins)")
+        playerTurnLabel.text = player1.name + "'s turn"
+        
+        
         
         view.addSubview(collectionView)
+        
+
         
 
 
     }
 
     func checkSquare (squareIndex: Square) {
-        switch turn {
+        switch currentPlayer.name {
+            
         case player1.name:
             if board.checkSquare(player: player1, squareIndex: squareIndex) == true {
-                board.checkWin(player: player1)
-                turn = player2.name
+                if !winOrDraw() {
+                    currentPlayer = player2
+                    playerTurnLabel.text = ("\(currentPlayer.name)'s turn")
+                }
+
             }
+            
         case player2.name:
             if board.checkSquare(player: player2, squareIndex: squareIndex) == true {
-                board.checkWin(player: player2)
-                turn = player1.name
+                if !winOrDraw() {
+                    currentPlayer = player1
+                    playerTurnLabel.text = ("\(currentPlayer.name)'s turn")
+                }
             }
         default:
             print("default")
         }
     }
     
+    
+    func winOrDraw() -> Bool {
+        var gameEnded = false
+        if board.checkWin(player: currentPlayer) {
+            playerTurnLabel.text = ("\(currentPlayer.name) has won!")
+            board.awardWin(player: currentPlayer)
+            player1label.text = ("\(player1.name) 🥇 \(player1.wins)")
+            player2label.text = ("\(player2.name) 🥇 \(player2.wins)")
+            playAgainLabel.isHidden = false
+            gameEnded = true
+        } else if board.checkDraw(hasWon: board.checkWin(player: currentPlayer)) {
+            playerTurnLabel.text = ("Draw!")
+            playAgainLabel.isHidden = false
+            gameEnded = true
+        }
+        return gameEnded
+    }
+    
+    @IBAction func playAgainButton(_ sender: Any) {
+        board.resetBoard()
+        board.createBoard(boardSize: boardSize)
+        collectionView.reloadData()
+        playAgainLabel.isHidden = true
+        playerTurnLabel.text = ("\(currentPlayer.name)'s turn")
+        
+    }
     
 
 }
@@ -69,18 +117,18 @@ extension BoardCollectionViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        var cell = UICollectionViewCell()
+       // var cell = UICollectionViewCell()
         
-        if let boardCell = collectionView.dequeueReusableCell(withReuseIdentifier: "BoardCell", for: indexPath) as? BoardViewCell {
+        let boardCell = collectionView.dequeueReusableCell(withReuseIdentifier: "BoardCell", for: indexPath) as! BoardViewCell
             
             boardCell.configureBoard(with: dataSource[indexPath.row])
             
-            cell = boardCell
             
+            return boardCell
         }
+    
         
-        return cell
-    }
+
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

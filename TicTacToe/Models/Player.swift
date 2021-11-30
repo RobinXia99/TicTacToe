@@ -14,7 +14,7 @@ class Player {
     var playerImage: UIImage?
     var squares: [Int]?
     
-    init(name: String, wins: Int, playerImage: UIImage?, squares: Array<Int>?) {
+    init(name: String, wins: Int = 0, playerImage: UIImage?, squares: Array<Int>?) {
         self.name = name
         self.wins = wins
         self.playerImage = playerImage
