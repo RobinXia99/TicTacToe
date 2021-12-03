@@ -21,6 +21,8 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
     var player2 = Player(name: "", wins: 0, playerImage: nil, squares: nil)
     var player1Name = ""
     var player2Name = ""
+    var isPvp = false
+    var isPvc = false
     
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -54,6 +56,7 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
 
 
     }
+    
 
     func checkSquare (squareIndex: Square) {
         switch currentPlayer.name {
@@ -63,21 +66,41 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
                 if !winOrDraw() {
                     currentPlayer = player2
                     playerTurnLabel.text = ("\(currentPlayer.name)'s turn")
+                    if isPvc {
+                        
+                        
+                    
+            
+                        
+                       // DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+                            self.board.computerCheckSquare(player: self.player2)
+                            if !self.winOrDraw() {
+                                self.currentPlayer = self.player1
+                                self.playerTurnLabel.text = ("\(self.currentPlayer.name)'s turn")
+                                self.collectionView.reloadData()
+                      //      }
+                            
+                            
+                        }
+                    }
                 }
 
             }
             
         case player2.name:
-            if board.checkSquare(player: player2, squareIndex: squareIndex) == true {
-                if !winOrDraw() {
-                    currentPlayer = player1
-                    playerTurnLabel.text = ("\(currentPlayer.name)'s turn")
+            if isPvp {
+                if board.checkSquare(player: player2, squareIndex: squareIndex) == true {
+                    if !winOrDraw() {
+                        currentPlayer = player1
+                        playerTurnLabel.text = ("\(currentPlayer.name)'s turn")
+                    }
                 }
-            }
+            } 
         default:
             print("default")
         }
     }
+    
     
     
     func winOrDraw() -> Bool {
@@ -99,9 +122,12 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     @IBAction func playAgainButton(_ sender: Any) {
         board.resetBoard()
-        board.createBoard(boardSize: boardSize)
         collectionView.reloadData()
         playAgainLabel.isHidden = true
+        if currentPlayer.name == player2.name {
+            currentPlayer = player1
+            playerTurnLabel.text = ("\(currentPlayer.name)'s turn")
+        }
         playerTurnLabel.text = ("\(currentPlayer.name)'s turn")
         
     }
@@ -117,7 +143,6 @@ extension BoardCollectionViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-       // var cell = UICollectionViewCell()
         
         let boardCell = collectionView.dequeueReusableCell(withReuseIdentifier: "BoardCell", for: indexPath) as! BoardViewCell
             

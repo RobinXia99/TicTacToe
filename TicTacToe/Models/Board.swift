@@ -44,7 +44,11 @@ class Board {
     func resetBoard() {
         player1.squares?.removeAll()
         player2.squares?.removeAll()
-        squares.removeAll()
+        for square in squares {
+            square.isChecked = false
+            square.playerImage = nil
+        }
+        
         
     }
     
@@ -53,7 +57,7 @@ class Board {
         if let playerSquares = player.squares {
             
             if board3x3 {
-            for (index,numbers) in winningCombinations3x3.enumerated() {
+            for numbers in winningCombinations3x3 {
                if playerSquares.contains(numbers[0]) && playerSquares.contains(numbers[1]) &&
                     playerSquares.contains(numbers[2]) {
                    for square in squares {
@@ -133,9 +137,15 @@ class Board {
     
      
     func createPlayer(namep1: String, namep2: String) {
-        if namep1 != "" && namep2 != "" {
+        if namep1 != "" {
             player1.name = namep1
+        } else if namep1 == "" {
+            player1.name = "Player 1"
+        }
+        if namep2 != "" {
             player2.name = namep2
+        } else if namep2 == ""{
+            player2.name = "Player 2"
         }
      }
      
@@ -157,6 +167,21 @@ class Board {
             return true
         }
      }
+    
+    func computerCheckSquare (player: Player) {
+        var uncheckedSquares = [Square]()
+        for square in squares {
+            if square.isChecked == false {
+                uncheckedSquares.append(square)
+            }
+        }
+        var randomSelection = uncheckedSquares.randomElement()
+        if let selectedSquare = randomSelection?.squareIndex {
+            player.squares?.append(selectedSquare)
+            squares[selectedSquare].isChecked = true
+            squares[selectedSquare].playerImage = player.playerImage
+        }
+    }
     
     
     

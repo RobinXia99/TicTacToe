@@ -45,6 +45,7 @@ class PvPViewController: UIViewController {
             gameVC.player1Name = p1TextField.text ?? "Player1"
             gameVC.player2Name = p2TextField.text ?? "Player2"
             gameVC.boardSize = boardSize
+            gameVC.isPvp = true
 
         }
     }
