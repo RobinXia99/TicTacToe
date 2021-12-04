@@ -20,4 +20,8 @@ class Player {
         self.playerImage = playerImage
         self.squares = squares
     }
+    
+    func awardPoint (player: Player) {
+        player.wins += 1
+    }
 }

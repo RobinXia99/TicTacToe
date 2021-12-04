@@ -105,11 +105,7 @@ class Board {
     
         return isDraw
     }
-    
-    func awardWin (player: Player) {
-        print("\(player.name) has won!")
-        player.wins += 1
-    }
+
     
     func getBoard() -> Array<Square> {
         return squares

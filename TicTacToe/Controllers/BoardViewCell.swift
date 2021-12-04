@@ -16,4 +16,5 @@ class BoardViewCell: UICollectionViewCell {
         boardIndexImage.image = boardIndex.playerImage
     }
     
+    
 }
