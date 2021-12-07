@@ -64,10 +64,6 @@ class Board {
                        square.isChecked = true
                    }
                    hasWon = true
-                   
-                   for square in squares {
-                       square.isChecked = true
-                   }
                 }
             }
             } else if board5x5 {
@@ -164,19 +160,68 @@ class Board {
         }
      }
     
-    func computerCheckSquare (player: Player) {
-        var uncheckedSquares = [Square]()
+    func computerTurn (player: Player, difficulty: Int) {
+        var tempListOfSquares = [Int]()
+        var uncheckedSquares = [Int]()
         for square in squares {
             if square.isChecked == false {
-                uncheckedSquares.append(square)
+                uncheckedSquares.append(square.squareIndex)
             }
         }
-        var randomSelection = uncheckedSquares.randomElement()
-        if let selectedSquare = randomSelection?.squareIndex {
-            player.squares?.append(selectedSquare)
-            squares[selectedSquare].isChecked = true
-            squares[selectedSquare].playerImage = player.playerImage
+        
+        if difficulty == 1 {
+            let randomSelection = uncheckedSquares.randomElement()
+            if let selectedSquare = randomSelection {
+                player.squares?.append(selectedSquare)
+                squares[selectedSquare].isChecked = true
+                squares[selectedSquare].playerImage = player.playerImage
+            }
+            
+            
+            
+        } else if difficulty == 2 && board3x3 {
+            var index = 0
+            
+            if let playerSquares = player1.squares {
+            
+                for number in winningCombinations3x3 {
+                    if !playerSquares.contains(number[0]) {
+                        tempListOfSquares.append(number[0])
+                    }
+                    if !playerSquares.contains(number[1]) {
+                        tempListOfSquares.append(number[1])
+                    }
+                    if !playerSquares.contains(number[2]) {
+                        tempListOfSquares.append(number[2])
+                    }
+                    
+                    if tempListOfSquares.count == 1 {
+                        if uncheckedSquares.contains(tempListOfSquares[0]) {
+                            player.squares?.append(tempListOfSquares[0])
+                            squares[tempListOfSquares[0]].isChecked = true
+                            squares[tempListOfSquares[0]].playerImage = player.playerImage
+                            print("1")
+                            return
+                        }
+                    } else {
+                        tempListOfSquares.removeAll()
+                    }
+                }
+                    let randomSelection = uncheckedSquares.randomElement()
+                    if let selectedSquare = randomSelection {
+                        player.squares?.append(selectedSquare)
+                        squares[selectedSquare].isChecked = true
+                        squares[selectedSquare].playerImage = player.playerImage
+                        print("2")
+                        return
+                    }
+                
+            }
+
+
+            
         }
+
     }
     
     

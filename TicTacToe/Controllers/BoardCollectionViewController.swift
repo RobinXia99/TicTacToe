@@ -23,6 +23,7 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
     var player2Name = ""
     var isPvp = false
     var isPvc = false
+    var difficulty = 0
     
     
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -52,10 +53,6 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
         
         
      //   view.addSubview(collectionView)
-        
-
-        
-
 
     }
     
@@ -90,11 +87,10 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     func computersTurn() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.board.computerCheckSquare(player: self.player2)
+            self.board.computerTurn(player: self.player2,difficulty: self.difficulty)
             if !self.winOrDraw() {
                 self.currentPlayer = self.player1
                 self.playerTurnLabel.text = ("\(self.currentPlayer.name)'s turn")
-                self.collectionView.reloadData()
             }
         }
     }
@@ -115,7 +111,7 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
             playAgainLabel.isHidden = false
             gameEnded = true
         }
-        
+        collectionView.reloadData()
         return gameEnded
     }
     
@@ -161,7 +157,6 @@ extension BoardCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         checkSquare(squareIndex: dataSource[indexPath.row])
-        print(collectionView)
         collectionView.reloadData()
 
     }
