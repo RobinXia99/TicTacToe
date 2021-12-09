@@ -12,9 +12,9 @@ import UIKit
 class Board {
     
     
-    private var player1 = Player(name: "Player1", wins: 0, playerImage: UIImage(named: "o"), squares: [])
-     
-    private var player2 = Player(name: "Player2", wins: 0, playerImage: UIImage(named: "x"), squares: [])
+    private var player1 = Player(name: "Player1", wins: 0, playerImage: "o", squares: [])
+    
+    private var player2 = Player(name: "Player2", wins: 0, playerImage: "x", squares: [])
     
     private var squares = [Square]()
     
@@ -57,27 +57,27 @@ class Board {
         if let playerSquares = player.squares {
             
             if board3x3 {
-            for numbers in winningCombinations3x3 {
-               if playerSquares.contains(numbers[0]) && playerSquares.contains(numbers[1]) &&
-                    playerSquares.contains(numbers[2]) {
-                   for square in squares {
-                       square.isChecked = true
-                   }
-                   hasWon = true
+                for numbers in winningCombinations3x3 {
+                    if playerSquares.contains(numbers[0]) && playerSquares.contains(numbers[1]) &&
+                        playerSquares.contains(numbers[2]) {
+                        for square in squares {
+                            square.isChecked = true
+                        }
+                        hasWon = true
+                    }
                 }
-            }
             } else if board5x5 {
                 for (index,numbers) in winningCombinations5x5.enumerated() {
-                   if playerSquares.contains(numbers[0]) &&
+                    if playerSquares.contains(numbers[0]) &&
                         playerSquares.contains(numbers[1]) &&
                         playerSquares.contains(numbers[2]) &&
                         playerSquares.contains(numbers[3]) {
                         
-                       hasWon = true
-                       
-                       for square in squares {
-                           square.isChecked = true
-                       }
+                        hasWon = true
+                        
+                        for square in squares {
+                            square.isChecked = true
+                        }
                     }
                 }
             }
@@ -98,10 +98,10 @@ class Board {
                 isDraw = true
             }
         }
-    
+        
         return isDraw
     }
-
+    
     
     func getBoard() -> Array<Square> {
         return squares
@@ -127,7 +127,7 @@ class Board {
         return height
     }
     
-     
+    
     func createPlayer(namep1: String, namep2: String) {
         if namep1 != "" {
             player1.name = namep1
@@ -139,29 +139,29 @@ class Board {
         } else if namep2 == ""{
             player2.name = "Player 2"
         }
-     }
-     
+    }
+    
     func getPlayer1 () -> Player {
-         return player1
-     }
-     
+        return player1
+    }
+    
     func getPlayer2 () -> Player {
-         return player2
-     }
-     
-    func checkSquare (player: Player, squareIndex: Square) -> Bool {
-        if squareIndex.isChecked {
+        return player2
+    }
+    
+    func checkSquare (player: Player, squareIndex: Int) -> Bool {
+        
+        if squares[squareIndex].isChecked {
             return false
         } else {
-            player.squares?.append(squareIndex.squareIndex)
-            squares[squareIndex.squareIndex].isChecked = true
-            squares[squareIndex.squareIndex].playerImage = player.playerImage
+            player.squares?.append(squareIndex)
+            squares[squareIndex].isChecked = true
+            squares[squareIndex].playerImage = UIImage(named: player.playerImage)
             return true
         }
-     }
+    }
     
     func computerTurn (player: Player, difficulty: Int) {
-        var tempListOfSquares = [Int]()
         var uncheckedSquares = [Int]()
         for square in squares {
             if square.isChecked == false {
@@ -170,59 +170,79 @@ class Board {
         }
         
         if difficulty == 1 {
-            let randomSelection = uncheckedSquares.randomElement()
-            if let selectedSquare = randomSelection {
-                player.squares?.append(selectedSquare)
-                squares[selectedSquare].isChecked = true
-                squares[selectedSquare].playerImage = player.playerImage
-            }
+            botCheckEasy(uncheckedSquares: uncheckedSquares)
+            
+        } else if difficulty == 2  {
+            botCheckMedium(uncheckedSquares: uncheckedSquares)
             
             
             
-        } else if difficulty == 2 && board3x3 {
-            var index = 0
-            
-            if let playerSquares = player1.squares {
-            
-                for number in winningCombinations3x3 {
-                    if !playerSquares.contains(number[0]) {
-                        tempListOfSquares.append(number[0])
-                    }
-                    if !playerSquares.contains(number[1]) {
-                        tempListOfSquares.append(number[1])
-                    }
-                    if !playerSquares.contains(number[2]) {
-                        tempListOfSquares.append(number[2])
-                    }
-                    
-                    if tempListOfSquares.count == 1 {
-                        if uncheckedSquares.contains(tempListOfSquares[0]) {
-                            player.squares?.append(tempListOfSquares[0])
-                            squares[tempListOfSquares[0]].isChecked = true
-                            squares[tempListOfSquares[0]].playerImage = player.playerImage
-                            print("1")
-                            return
-                        }
-                    } else {
-                        tempListOfSquares.removeAll()
-                    }
-                }
-                    let randomSelection = uncheckedSquares.randomElement()
-                    if let selectedSquare = randomSelection {
-                        player.squares?.append(selectedSquare)
-                        squares[selectedSquare].isChecked = true
-                        squares[selectedSquare].playerImage = player.playerImage
-                        print("2")
-                        return
-                    }
-                
-            }
-
-
             
         }
-
+        
+        
     }
+    
+    
+    func botCheckEasy(uncheckedSquares: Array<Int>) {
+        let randomSelection = uncheckedSquares.randomElement()
+        if let selectedSquare = randomSelection {
+            checkSquare(player: player2, squareIndex: selectedSquare)
+        }
+    }
+    
+    func botCheckMedium(uncheckedSquares: Array<Int>) {
+        var tempList = [Int]()
+        var currentWinCombination = winningCombinations3x3
+        var boardCenterIndex = 4
+        if board3x3 {
+            currentWinCombination = winningCombinations3x3
+            boardCenterIndex = 4
+        } else if board5x5 {
+            currentWinCombination = winningCombinations5x5
+            boardCenterIndex = 12
+        }
+        
+        if let playerSquares = player1.squares {
+            
+            for number in currentWinCombination {
+                if !playerSquares.contains(number[0]) {
+                    tempList.append(number[0])
+                }
+                if !playerSquares.contains(number[1]) {
+                    tempList.append(number[1])
+                }
+                if !playerSquares.contains(number[2]) {
+                    tempList.append(number[2])
+                }
+                if currentWinCombination == winningCombinations5x5 && !playerSquares.contains(number[3]) {
+                    tempList.append(number[3])
+                }
+                
+                if tempList.count == 1 {
+                    if uncheckedSquares.contains(tempList[0]) {
+                        checkSquare(player: player2, squareIndex: tempList[0])
+                        return
+                    }
+                } else {
+                    tempList.removeAll()
+                }
+            }
+            
+            if uncheckedSquares.contains(boardCenterIndex) {
+                checkSquare(player: player2, squareIndex: boardCenterIndex)
+                return
+            } else {
+                let randomSelection = uncheckedSquares.randomElement()
+                if let selectedSquare = randomSelection {
+                    checkSquare(player: player2, squareIndex: selectedSquare)
+                    return
+                }
+            }
+            
+        }
+    }
+    
     
     
     

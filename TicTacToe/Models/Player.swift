@@ -11,10 +11,10 @@ import UIKit
 class Player {
     var name: String
     var wins: Int
-    var playerImage: UIImage?
+    var playerImage: String
     var squares: [Int]?
     
-    init(name: String, wins: Int = 0, playerImage: UIImage?, squares: Array<Int>?) {
+    init(name: String, wins: Int = 0, playerImage: String, squares: Array<Int>?) {
         self.name = name
         self.wins = wins
         self.playerImage = playerImage
