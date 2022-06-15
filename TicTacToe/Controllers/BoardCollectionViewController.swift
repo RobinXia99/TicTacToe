@@ -21,8 +21,7 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
     var player2 = Player(name: "", wins: 0, playerImage: "", squares: nil)
     var player1Name = ""
     var player2Name = ""
-    var isPvp = false
-    var isPvc = false
+    var isPvp = true
     var difficulty = 0
     
     
@@ -55,13 +54,13 @@ class BoardCollectionViewController: UIViewController, UICollectionViewDataSourc
                 if !winOrDraw() {
                     currentPlayer = player2
                     playerTurnLabel.text = ("\(currentPlayer.name)'s turn")
-                    if isPvc {
+                    if isPvp == false {
                         computersTurn()
                     }
                 }
             }
         case player2.name:
-            if isPvp {
+            if isPvp == true {
                 if board.checkSquare(player: player2, squareIndex: square.squareIndex) == true {
                     if !winOrDraw() {
                         currentPlayer = player1

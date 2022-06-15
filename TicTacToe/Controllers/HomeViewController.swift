@@ -8,26 +8,31 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    
+    let Preparegamecontroller = 1
 
     @IBOutlet weak var pvpButton: UIButton!
     @IBOutlet weak var pvcButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        pvpButton.isSelected = true
         pvcButton.isSelected = true
+        pvpButton.isSelected = true
+    }
+    var pvpon = true
+    
+    @IBAction func PVPBtnpush(_ sender: Any) {
+        pvpon = true
+        performSegue(withIdentifier: "Rungamesettings", sender: self)
+    }
+    @IBAction func PVCBtnpush(_ sender: Any) {
+        pvpon = false
+        performSegue(withIdentifier: "Rungamesettings", sender: self)
     }
     
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "Rungamesettings" {
+            let PVCCtrl = segue.destination as! GamesettingsVC
+            PVCCtrl.pvp = pvpon
+        }
     }
-    */
-
 }

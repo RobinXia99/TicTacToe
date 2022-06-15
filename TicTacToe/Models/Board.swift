@@ -169,15 +169,10 @@ class Board {
             }
         }
         
-        if difficulty == 1 {
+        if difficulty == 2 {
+            botCheckHard(uncheckedSquares: uncheckedSquares)
+        } else {
             botCheckEasy(uncheckedSquares: uncheckedSquares)
-            
-        } else if difficulty == 2  {
-            botCheckMedium(uncheckedSquares: uncheckedSquares)
-            
-            
-            
-            
         }
         
         
@@ -191,7 +186,7 @@ class Board {
         }
     }
     
-    func botCheckMedium(uncheckedSquares: Array<Int>) {
+    func botCheckHard(uncheckedSquares: Array<Int>) {
         var tempList = [Int]()
         var currentWinCombination = winningCombinations3x3
         var boardCenterIndex = 4
