@@ -14,7 +14,6 @@ class PvPViewController: UIViewController {
     @IBOutlet weak var p2TextField: UITextField!
     @IBOutlet weak var p1TextLabel: UILabel!
     @IBOutlet weak var p2textLabel: UILabel!
-    @IBOutlet weak var timerTextField: UITextField!
     
     let board = Board()
 
